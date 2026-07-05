@@ -16,6 +16,24 @@ from backend.vector_store import add_paper, list_papers
 
 st.set_page_config(page_title="Rag-research-assistant", page_icon="📚", layout="centered")
 
+# Password protection
+def check_password():
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+    
+    if not st.session_state.authenticated:
+        st.title("🔬 RAG Research Assistant")
+        password = st.text_input("Enter demo password", type="password")
+        if st.button("Login"):
+            if password == "agent@rag2025":
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("Incorrect password")
+        st.stop()
+
+check_password()
+
 
 @st.cache_resource
 def get_graph():
