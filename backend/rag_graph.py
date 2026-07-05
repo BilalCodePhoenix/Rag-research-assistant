@@ -103,6 +103,7 @@ def retrieve_from_vectorstore(
 ) -> list:
     """Search the uploaded research paper vector store for relevant passages."""
     docs = vs_search(query=query, session_id=session_id, k=k)
+
     if not docs:
         return [ToolMessage(content="No relevant documents found in the vector store.", tool_call_id=tool_call_id)]
     summary = f"Retrieved {len(docs)} chunk(s) from the vector store."
@@ -141,7 +142,7 @@ def web_search(
 # ── Retrieval agent singletons ────────────────────────────────────────────────
 
 RETRIEVAL_TOOLS = [retrieve_from_vectorstore, web_search]
-retrieval_llm = llm.bind_tools(RETRIEVAL_TOOLS) #parallel_tool_calls=False
+retrieval_llm = llm.bind_tools(RETRIEVAL_TOOLS ,parallel_tool_calls=False) #parallel_tool_calls=False
 base_tool_node = ToolNode(RETRIEVAL_TOOLS)
 
 RETRIEVE_SYSTEM = (
@@ -204,7 +205,7 @@ def agent_node(state: RAGState) -> dict:
 
 def relevancy_check_node(state: RAGState) -> dict:
     query = state["query"]
-    docs = state.get("retrieved_docs") or []
+    docs = state.get("retrieved_docs") or [] #.get() use to help for fallback mechanism like if there is no retrieved docs found it will not create it will simple return none.
     doc_snippets = "\n\n---\n\n".join(doc.page_content[:300] for doc in docs[:3])
     if not doc_snippets:
         return {"is_relevant": False}

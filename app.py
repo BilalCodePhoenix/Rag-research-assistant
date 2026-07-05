@@ -14,7 +14,7 @@ from backend.paper_loader import load_arxiv, load_document, load_webpage
 from backend.rag_graph import build_graph
 from backend.vector_store import add_paper, list_papers
 
-st.set_page_config(page_title="Papeer", page_icon="📚", layout="centered")
+st.set_page_config(page_title="Rag-research-assistant", page_icon="📚", layout="centered")
 
 
 @st.cache_resource
@@ -291,7 +291,7 @@ with st.sidebar:
         st.caption("No documents loaded yet.")
 
 # ── Page header ────────────────────────────────────────────────────────────────
-st.title("📚 Papeer — Research Paper Assistant")
+st.title("📚 Rag-research-assistant")
 st.markdown(
     "🔍 **Ask questions** from your uploaded papers &nbsp;·&nbsp; "
     "✅ **Verify claims** against recent literature &nbsp;·&nbsp; "
