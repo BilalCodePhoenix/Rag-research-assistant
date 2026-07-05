@@ -16,20 +16,49 @@ from backend.vector_store import add_paper, list_papers
 
 st.set_page_config(page_title="Rag-research-assistant", page_icon="📚", layout="centered")
 
-# Password protection
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
     
     if not st.session_state.authenticated:
-        st.title("🔬 RAG Research Assistant")
-        password = st.text_input("Enter demo password", type="password")
-        if st.button("Login"):
-            if password == "agent@rag2025":
-                st.session_state.authenticated = True
-                st.rerun()
-            else:
-                st.error("Incorrect password")
+        
+        col1, col2, col3 = st.columns([1, 2, 1])
+        
+        with col2:
+            st.markdown("<br><br>", unsafe_allow_html=True)
+            
+            st.markdown("""
+                <div style='text-align: center; padding: 2rem;'>
+                    <h1 style='font-size: 2.5rem;'>🔬</h1>
+                    <h2 style='font-size: 1.5rem; font-weight: 600; 
+                               color: #1a1a1a;'>RAG Research Assistant</h2>
+                    <p style='color: #666; font-size: 0.9rem; 
+                              margin-top: 0.5rem;'>
+                        Agentic AI for research papers
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            password = st.text_input(
+                "Password",
+                type="password",
+                placeholder="Enter demo password",
+                label_visibility="collapsed"
+            )
+            
+            if st.button("Login →", use_container_width=True):
+                if password == "agent@rag2026":
+                    st.session_state.authenticated = True
+                    st.rerun()
+                else:
+                    st.error("Incorrect password")
+            
+            st.markdown("""
+                <p style='text-align: center; color: #999; 
+                          font-size: 0.8rem; margin-top: 1rem;'>
+                </p>
+            """, unsafe_allow_html=True)
+        
         st.stop()
 
 check_password()
