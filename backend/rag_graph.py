@@ -142,7 +142,7 @@ def web_search(
 # ── Retrieval agent singletons ────────────────────────────────────────────────
 
 RETRIEVAL_TOOLS = [retrieve_from_vectorstore, web_search]
-retrieval_llm = llm.bind_tools(RETRIEVAL_TOOLS ,parallel_tool_calls=False) #parallel_tool_calls=False
+retrieval_llm = llm.bind_tools(RETRIEVAL_TOOLS ) #parallel_tool_calls=False
 base_tool_node = ToolNode(RETRIEVAL_TOOLS)
 
 RETRIEVE_SYSTEM = (
